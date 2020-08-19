@@ -2,13 +2,11 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>SchoolSchedule</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>ScheduleServlet</welcome-file>
   </welcome-file-list>
+  <listener>
+    <listener-class>Schedule.InitListener</listener-class>
+  </listener>
   <servlet>
     <description></description>
     <display-name>ScheduleServlet</display-name>
@@ -19,9 +17,6 @@
     <servlet-name>ScheduleServlet</servlet-name>
     <url-pattern>/ScheduleServlet</url-pattern>
   </servlet-mapping>
-  <listener>
-    <listener-class>Schedule.InitListener</listener-class>
-  </listener>
   <filter>
     <display-name>CharacterEncodingFilter</display-name>
     <filter-name>CharacterEncodingFilter</filter-name>
@@ -29,6 +24,66 @@
   </filter>
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
-    <url-pattern>/CharacterEncodingFilter</url-pattern>
+    <url-pattern>*</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AllLecturesServlet</display-name>
+    <servlet-name>AllLecturesServlet</servlet-name>
+    <servlet-class>Schedule.lectures.AllLecturesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AllLecturesServlet</servlet-name>
+    <url-pattern>/AllLecturesServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddLectureServlet</display-name>
+    <servlet-name>AddLectureServlet</servlet-name>
+    <servlet-class>Schedule.lectures.AddLectureServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddLectureServlet</servlet-name>
+    <url-pattern>/AddLectureServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewAddLectureServlet</display-name>
+    <servlet-name>ViewAddLectureServlet</servlet-name>
+    <servlet-class>Schedule.lectures.ViewAddLectureServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewAddLectureServlet</servlet-name>
+    <url-pattern>/ViewAddLectureServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteLectureServlet</display-name>
+    <servlet-name>DeleteLectureServlet</servlet-name>
+    <servlet-class>Schedule.lectures.DeleteLectureServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteLectureServlet</servlet-name>
+    <url-pattern>/DeleteLectureServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditLectureServlet</display-name>
+    <servlet-name>EditLectureServlet</servlet-name>
+    <servlet-class>Schedule.lectures.EditLectureServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditLectureServlet</servlet-name>
+    <url-pattern>/EditLectureServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewLectureServlet</display-name>
+    <servlet-name>ViewLectureServlet</servlet-name>
+    <servlet-class>Schedule.lectures.ViewLectureServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewLectureServlet</servlet-name>
+    <url-pattern>/ViewLectureServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

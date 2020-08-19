@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScheduleAddLecture</title>
+    <style>
+        tr th {text-align: left;}
+    </style>
+</head>
+<body>
+    <div>
+        <form method="post" action="AddLectureServlet">
+        <table>
+            <caption>Add Lectures</caption>
+            <tr>
+                <th>Day</th>
+                <td>
+                    <select name="day" id="day" aria-placeholder="">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                      </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Group</th>
+                <td>
+                    <input type="text" name="group" required maxlength="3" value="">
+                </td>
+            </tr>
+            <tr>
+                <th>From</th>
+                <td>
+                    <input type="time" name="from" required value="">
+                </td>
+            </tr>
+            <tr>
+                <th>To</th>
+                <td>
+                    <input type="time" name="to" required value="">
+                </td>
+            </tr>
+            <tr>
+                <th>Clasroom</th>
+                <td><input type="text" name="clasroom" required value=""></td>
+            </tr>
+            <tr>
+                <th>Teaching</th>
+                <td>
+                    <input type="radio" id="theory" name="teaching" value="theory" checked>
+                    <label for="theory">Theory</label><br>
+                    <input type="radio" id="practice" name="teaching" value="practice">
+                    <label for="practice">Practice</label><br>
+                </td>
+            </tr>
+            <tr>
+                <th>Subject</th>
+                <td><input type="text" name="subject" required value=""></td>
+            </tr>
+            <tr>
+                <th>Teacher</th>
+                <td><input type="text" name="teacher" required value=""></td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td><input type="submit" value="add"></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+
+</body>
+</html>

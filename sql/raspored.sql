@@ -30,8 +30,8 @@ CREATE TABLE users (
 	PRIMARY KEY(user_name)
 );
 
-INSERT INTO teaching (id, namee) VALUES (1, 'lectures');
-INSERT INTO teaching (id, namee) VALUES (2, 'exercises');
+INSERT INTO teaching (id, namee) VALUES (1, 'theory');
+INSERT INTO teaching (id, namee) VALUES (2, 'practice');
 
 INSERT INTO lecure (days, groupp, fromm, too, clasroom, teaching, Subjectt, teacher) VALUES ('Monday', 'svi', '09:00:00', '10:30:00', '101', 1, 'mathematics','teacher 1');
 INSERT INTO lecure (days, groupp, fromm, too, clasroom, teaching, Subjectt, teacher) VALUES ('Monday', '1', '10:45:00', '12:15:00', '201', 2, 'mathematics','techer 2');

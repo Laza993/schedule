@@ -2,7 +2,6 @@ package Schedule;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.DriverManager;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -10,11 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.corba.se.pept.transport.Connection;
 
-
+@SuppressWarnings("serial")
 public class ScheduleServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
        
     public ScheduleServlet() {
         super();
@@ -23,29 +20,28 @@ public class ScheduleServlet extends HttpServlet {
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-//		Connection conn = DriverManager.getConnection();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("text/html; charset=UTF-8");
 		
 		PrintWriter pw = response.getWriter();
-		pw.println("<html>");
-		pw.println("<body>");
-		pw.println("<p>Daj da vidimo ocel da radi</p>");
-		pw.println("</body>");
-		pw.println("</html>");
-		pw.flush();
-		pw.close();
+		pw.write("<!DOCTYPE html>\r\n" + 
+				"<html lang=\"en\">\r\n" + 
+				"<head>\r\n" + 
+				"    <meta charset=\"UTF-8\">\r\n" + 
+				"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n" + 
+				"    <title>Schedule</title>\r\n" + 
+				"</head>\r\n" + 
+				"<body>\r\n" + 
+				"    <h1>Welcome to School Schedule</h1>\r\n" + 
+				"    <a href=\"AllLecturesServlet\">Preview schedule</a>\r\n" + 
+				"    <a href=\"ViewAddLectureServlet\">Add a new Lecture</a>\r\n" + 
+				"</body>\r\n" + 
+				"</html>");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

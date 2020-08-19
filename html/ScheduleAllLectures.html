@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Lectures</title>
+</head>
+<body>
+    <table>
+        <caption>Schedule</caption>
+        <tr>
+            <th>Day</th>
+            <th>Group</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Clasroom</th>
+            <th>Teaching</th>
+            <th>Subject</th>
+            <th>Teacher</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>#</td>
+            <td>#</td>
+            <td>#</td>
+            <td>#</td>
+            <td>#</td>
+            <td>#</td>
+            <td>#</td>
+            <td>#</td>
+            <td>
+                <form method="post" action="DeleteLectureServlet">
+                    <input type="hidden" id="delId" name="delId" value="">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="submit" value="delete">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

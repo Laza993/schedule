@@ -7,7 +7,7 @@ import Schedule.dao.ConnectionManager;
 
 public class InitListener implements ServletContextListener {
 
-    public void contextDestroyed(ServletContextEvent arg0)  { 
+    public void contextDestroyed(ServletContextEvent event)  { 
          try {
         	 System.out.println("closing connection with database...");
         	 ConnectionManager.close();
@@ -18,7 +18,7 @@ public class InitListener implements ServletContextListener {
     }
 
 
-    public void contextInitialized(ServletContextEvent arg0)  { 
+    public void contextInitialized(ServletContextEvent event)  { 
          try {
         	System.out.println("opening connection with database...");
 			ConnectionManager.open();

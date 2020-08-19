@@ -21,9 +21,10 @@ public class ConnectionManager {
 	public static Connection getConnection() throws Exception{
 		if(connection == null || connection.isClosed()) {
 			throw new Exception("Connection does not exist");
-		}else {
-			return connection;
 		}
+		return connection;
+		
+		
 	}
 	
 	public static void close() throws Exception {
