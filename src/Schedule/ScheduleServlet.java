@@ -8,6 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import Schedule.model.Role;
+import Schedule.model.User;
 
 
 @SuppressWarnings("serial")
@@ -23,7 +27,9 @@ public class ScheduleServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		
 		response.setContentType("text/html; charset=UTF-8");
 		
 		PrintWriter pw = response.getWriter();
@@ -35,16 +41,23 @@ public class ScheduleServlet extends HttpServlet {
 				"    <title>Schedule</title>\r\n" + 
 				"</head>\r\n" + 
 				"<body>\r\n" + 
-				"    <h1>Welcome to School Schedule</h1>\r\n" + 
-				"    <a href=\"AllLecturesServlet\">Preview schedule</a>\r\n" + 
-				"    <a href=\"ViewAddLectureServlet\">Add a new Lecture</a>\r\n" + 
-				"</body>\r\n" + 
-				"</html>");
-	}
+				"    <h1>Welcome to School Schedule</h1>\r\n");
+				if(loggedUser == null) {
+					pw.write("<a href=\"Login.html\">Please Sing in</a>\r\n");
+				}else if(loggedUser.getRole().equals(Role.student)) {
+					pw.write("<a href=\"AllLecturesServlet\">Preview schedule</a>\r\n");
+				}
+				else {
+					pw.write("<a href=\"AllLecturesServlet\">Preview schedule</a>\r\n" + 
+				"    <a href=\"ViewAddLectureServlet\">Add a new Lecture</a>\r\n");
+				}
+				pw.write(
+						"</body>\r\n" + 
+						"</html>"
+						);
 
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

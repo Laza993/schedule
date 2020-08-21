@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Register page</title>
+	<style type="text/css">
+		input[type="text"][type="password"] {
+			width: 150px
+		}
+		input[type="submit"] {
+			width: 100px
+		}
+	</style>
+</head>
+<body>
+	<form method="post" action="RegisterServlet">
+		<table>
+			<caption>Registration</caption>
+			<tr><th>Username:</th><td><input type="text" name="username1"  required/></td></tr>
+			<tr><th>Password:</th><td><input type="password" name="password1" required/></td></tr>
+			<tr><th>Password:</th><td><input type="password" name="password2" required/></td></tr>
+			<tr>
+				<th>Role</th>
+				<td>
+					<select name="role" id="role" >
+						<option value="teacher">teacher</option>
+						<option value="student" selected>student</option>
+					</select>
+				</td>
+			</tr>
+			<tr><td></td><td><input type="submit" value="Submit"/></td></tr>
+		</table>
+	</form>
+</body>
+</html>
