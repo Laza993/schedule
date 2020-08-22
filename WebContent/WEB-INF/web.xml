@@ -116,4 +116,14 @@
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/RegisterServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SearchByDayServlet</display-name>
+    <servlet-name>SearchByDayServlet</servlet-name>
+    <servlet-class>Schedule.lectures.SearchByDayServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchByDayServlet</servlet-name>
+    <url-pattern>/SearchByDayServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

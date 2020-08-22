@@ -11,14 +11,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Schedule.dao.LectureDAO;
+import Schedule.model.Days;
 import Schedule.model.Lecture;
 import Schedule.model.Role;
 import Schedule.model.User;
 
 @SuppressWarnings("serial")
-public class AllLecturesServlet extends HttpServlet {
+public class SearchByDayServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String day = request.getParameter("day");
+		if(day.equals("All")) {
+			response.sendRedirect("AllLecturesServlet");
+			return;
+		}
+		Days days = Days.valueOf(day);
 		int theorys = 0;
 		int practices = 0;
 		HttpSession session = request.getSession();
@@ -28,7 +39,7 @@ public class AllLecturesServlet extends HttpServlet {
 			return;
 		}
 		try {
-			List<Lecture> lectures = LectureDAO.getLectures();
+			List<Lecture> lectures = LectureDAO.getLectures(days);
 			response.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter out = response.getWriter();
 			
@@ -73,12 +84,6 @@ public class AllLecturesServlet extends HttpServlet {
 					"        </tr>\r\n");
 					
 					for(Lecture lecture : lectures) {
-						if(lecture.getTeaching().getId() == 1) {
-							theorys++;
-						}
-						if(lecture.getTeaching().getId() == 2) {
-							practices++;
-						}
 						out.write(
 					"        <tr>\r\n" + 
 					"            <td> " + lecture.getDay() + "</td>\r\n" + 
@@ -120,14 +125,6 @@ public class AllLecturesServlet extends HttpServlet {
 						}
 					
 					out.write(
-					"        <tr>\r\n" + 
-					"            <th>number of theory classes</th>\r\n" + 
-					"            <td>"+ theorys +"</td>\r\n" + 
-					"        </tr>\r\n" + 
-					"        <tr>\r\n" + 
-					"            <th>number of practice classes</th>\r\n" + 
-					"            <td>"+ practices +"</td>\r\n" + 
-					"        </tr>" +
 					"    </table>\r\n" );
 					if(loggedUser.getRole().equals(Role.teacher)) {
 						out.write("<a href=\"ViewAddLectureServlet\">Add new lecture</a>\r\n");
@@ -140,10 +137,7 @@ public class AllLecturesServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

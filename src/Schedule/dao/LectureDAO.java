@@ -84,6 +84,44 @@ public class LectureDAO {
 		return lectures;
 	}
 
+	public static List<Lecture> getLectures(Days day) throws Exception {
+		List<Lecture> lectures = new ArrayList<Lecture>();
+		Lecture lecture = null;
+		
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
+		try {
+			String sql = "SELECT * FROM lecure WHERE days = ?";
+			stmt = ConnectionManager.getConnection().prepareStatement(sql);
+			int ind = 1;
+			stmt.setString(ind++, day.toString());
+			rset = stmt.executeQuery();
+			while(rset.next()) {
+				int index = 1;
+				Long ID = (long) rset.getInt(index++);
+				Days days =  Days.valueOf(rset.getString(index++));
+				String group = rset.getString(index++);
+				Time from = rset.getTime(index++);
+				Time to = rset.getTime(index++);
+				String classroom = rset.getString(index++);
+				Teaching teaching = TeachingDAO.getTeachingById((rset.getInt(index++)));
+				String subject = rset.getString(index++);
+				String teacher = rset.getString(index++);
+				
+				lecture = new Lecture(ID, days, group, from, to, classroom, teaching, subject, teacher);
+				if(lecture != null) {
+					lectures.add(lecture);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {stmt.close();} catch (Exception e) {e.printStackTrace();}
+			try {rset.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		
+		return lectures;
+	}
 	public static boolean addLecture(Lecture lecture) throws Exception {
 		PreparedStatement stmt = null;
 		try {

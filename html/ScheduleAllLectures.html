@@ -9,6 +9,23 @@
     <table>
         <caption>Schedule</caption>
         <tr>
+            <form action="SearchByDayServlet" method="post">
+            <td>
+                <select name="day" id="day" aria-placeholder="">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                  </select>
+            </td>
+            <td>
+                <input type="submit" value="search">
+            </td>
+            </form>
+        </tr>
+        <tr>
             <th>Day</th>
             <th>Group</th>
             <th>From</th>
@@ -40,6 +57,14 @@
                     </table>
                 </form>
             </td>
+        </tr>
+        <tr>
+            <th>number of theory classes</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>number of practice classes</th>
+            <td></td>
         </tr>
     </table>
 </body>
