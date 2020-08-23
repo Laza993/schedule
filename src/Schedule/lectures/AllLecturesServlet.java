@@ -38,28 +38,58 @@ public class AllLecturesServlet extends HttpServlet {
 					"    <meta charset=\"UTF-8\">\r\n" + 
 					"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n" + 
 					"    <title>All Lectures</title>\r\n" + 
+					"    <style>\r\n" + 
+					"        .mainTable {border-collapse: collapse;\r\n" + 
+					"                    border-spacing: 0px;\r\n" + 
+					"                  }\r\n" + 
+					"        .mainTable tr:nth-child(even){background-color: #f2f2f2;}\r\n" + 
+					"        .mainTable tr th {color: aliceblue;\r\n" + 
+					"        background-color: blue;\r\n" + 
+					"        padding: 10px;}\r\n" + 
+					"        .mainTable tr td {\r\n" + 
+					"            padding: 5px;\r\n" + 
+					"        }" +
+					"        a:link, a:visited {\r\n" + 
+					"            background-color: #4085f5;\r\n" + 
+					"            color: white;\r\n" + 
+					"            padding: 10px 15px;\r\n" + 
+					"            text-align: center;\r\n" + 
+					"            text-decoration: none;\r\n" + 
+					"            display: inline-block;\r\n" + 
+					"            border-radius: 10px;\r\n" + 
+					"        }\r\n" + 
+					"\r\n" + 
+					"        a:hover, a:active {\r\n" + 
+					"            background-color: blue;\r\n" + 
+					"        }" +
+					"    </style>"+
 					"</head>\r\n" + 
-					"<body>\r\n" + 
-					"    <table>\r\n" + 
+					"<body>\r\n" +
+					"    <div>\r\n" + 
+					"        <table>\r\n" + 
+					"            <tr>\r\n" + 
+					"                <form action=\"SearchByDayServlet\" method=\"post\">\r\n" + 
+					"                <td>\r\n" + 
+					"                    <select name=\"day\" id=\"day\" aria-placeholder=\"\">\r\n" + 
+					"                        <option value=\"All\">All</option>\r\n" + 
+					"                        <option value=\"Monday\">Monday</option>\r\n" + 
+					"                        <option value=\"Tuesday\">Tuesday</option>\r\n" + 
+					"                        <option value=\"Wednesday\">Wednesday</option>\r\n" + 
+					"                        <option value=\"Thursday\">Thursday</option>\r\n" + 
+					"                        <option value=\"Friday\">Friday</option>\r\n" + 
+					"                        <option value=\"Saturday\">Saturday</option>\r\n" + 
+					"                      </select>\r\n" + 
+					"                </td>\r\n" + 
+					"                <td>\r\n" + 
+					"                    <input type=\"submit\" value=\"search\">\r\n" + 
+					"                </td>\r\n" + 
+					"                </form>\r\n" + 
+					"            </tr>\r\n" + 
+					"        </table>\r\n" + 
+					"    </div>" +
+					"    <div>\r\n" +
+					"    <table class=\"mainTable\" border=\"1\">\r\n" + 
 					"        <caption>Schedule</caption>\r\n" + 
-					"        <tr>\r\n" + 
-					"            <form action=\"SearchByDayServlet\" method=\"post\">\r\n" + 
-					"            <td>\r\n" + 
-					"                <select name=\"day\" id=\"day\" aria-placeholder=\"\">\r\n" +
-					"                    <option value=\"All\">All</option>\r\n" + 
-					"                    <option value=\"Monday\">Monday</option>\r\n" + 
-					"                    <option value=\"Tuesday\">Tuesday</option>\r\n" + 
-					"                    <option value=\"Wednesday\">Wednesday</option>\r\n" + 
-					"                    <option value=\"Thursday\">Thursday</option>\r\n" + 
-					"                    <option value=\"Friday\">Friday</option>\r\n" + 
-					"                    <option value=\"Saturday\">Saturday</option>\r\n" + 
-					"                  </select>\r\n" + 
-					"            </td>\r\n" + 
-					"            <td>\r\n" + 
-					"                <input type=\"submit\" value=\"search\">\r\n" + 
-					"            </td>\r\n" + 
-					"            </form>\r\n" + 
-					"        </tr>" +
 					"        <tr>\r\n" + 
 					"            <th>Day</th>\r\n" + 
 					"            <th>Group</th>\r\n" + 
@@ -69,7 +99,7 @@ public class AllLecturesServlet extends HttpServlet {
 					"            <th>Teaching</th>\r\n" + 
 					"            <th>Subject</th>\r\n" + 
 					"            <th>Teacher</th>\r\n" + 
-					"            <th>Action</th>\r\n" + 
+					"            <th  colspan=\"2\">Action</th>\r\n" + 
 					"        </tr>\r\n");
 					
 					for(Lecture lecture : lectures) {
@@ -118,17 +148,21 @@ public class AllLecturesServlet extends HttpServlet {
 					"        </tr>\r\n");
 						}
 						}
-					
 					out.write(
-					"        <tr>\r\n" + 
-					"            <th>number of theory classes</th>\r\n" + 
-					"            <td>"+ theorys +"</td>\r\n" + 
-					"        </tr>\r\n" + 
-					"        <tr>\r\n" + 
-					"            <th>number of practice classes</th>\r\n" + 
-					"            <td>"+ practices +"</td>\r\n" + 
-					"        </tr>" +
-					"    </table>\r\n" );
+					"    </table>\r\n"+
+					"    </div>" +
+					"    <div>\r\n" + 
+					"        <table>\r\n" + 
+					"            <tr>\r\n" + 
+					"                <th>number of theory classes</th>\r\n" + 
+					"                <td>"+ theorys +"</td>\r\n" + 
+					"            </tr>\r\n" + 
+					"            <tr>\r\n" + 
+					"                <th>number of practice classes</th>\r\n" + 
+					"                <td>"+ practices +"</td>\r\n" + 
+					"            </tr>\r\n" + 
+					"        </table>\r\n" + 
+					"    </div>");
 					if(loggedUser.getRole().equals(Role.teacher)) {
 						out.write("<a href=\"ViewAddLectureServlet\">Add new lecture</a>\r\n");
 					}

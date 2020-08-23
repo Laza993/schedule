@@ -4,68 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Lectures</title>
+    <style>
+        .mainTable {border-collapse: collapse;
+                    border-spacing: 0px;
+                  }
+        .mainTable tr:nth-child(even){background-color: #f2f2f2;}
+        .mainTable tr th {color: aliceblue;
+        background-color: blue;
+        padding: 10px;}
+        .mainTable tr td {
+            padding: 10px;
+        }
+        a:link, a:visited {
+            background-color: #4085f5;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 10px;
+        }
+
+        a:hover, a:active {
+            background-color: blue;
+        }
+    </style>
 </head>
 <body>
-    <table>
-        <caption>Schedule</caption>
-        <tr>
-            <form action="SearchByDayServlet" method="post">
-            <td>
-                <select name="day" id="day" aria-placeholder="">
-                    <option value="Monday">Monday</option>
-                    <option value="Tuesday">Tuesday</option>
-                    <option value="Wednesday">Wednesday</option>
-                    <option value="Thursday">Thursday</option>
-                    <option value="Friday">Friday</option>
-                    <option value="Saturday">Saturday</option>
-                  </select>
-            </td>
-            <td>
-                <input type="submit" value="search">
-            </td>
-            </form>
-        </tr>
-        <tr>
-            <th>Day</th>
-            <th>Group</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Clasroom</th>
-            <th>Teaching</th>
-            <th>Subject</th>
-            <th>Teacher</th>
-            <th>Action</th>
-        </tr>
-        <tr>
-            <td>#</td>
-            <td>#</td>
-            <td>#</td>
-            <td>#</td>
-            <td>#</td>
-            <td>#</td>
-            <td>#</td>
-            <td>#</td>
-            <td>
-                <form method="post" action="DeleteLectureServlet">
-                    <input type="hidden" id="delId" name="delId" value="">
-                    <table>
-                        <tr>
-                            <td>
-                                <input type="submit" value="delete">
-                            </td>
-                        </tr>
-                    </table>
+    <div>
+        <table>
+            <tr>
+                <form action="SearchByDayServlet" method="post">
+                <td>
+                    <select name="day" id="day" aria-placeholder="">
+                        <option value="All">All</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                      </select>
+                </td>
+                <td>
+                    <input type="submit" value="search">
+                </td>
                 </form>
-            </td>
-        </tr>
-        <tr>
-            <th>number of theory classes</th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>number of practice classes</th>
-            <td></td>
-        </tr>
-    </table>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table class="mainTable" border="1">
+            <caption>Schedule</caption>
+            
+            <tr>
+                <th>Day</th>
+                <th>Group</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Clasroom</th>
+                <th>Teaching</th>
+                <th>Subject</th>
+                <th>Teacher</th>
+                <th colspan="2">Action</th>
+            </tr>
+            <tr>
+                <td>#</td>
+                <td>#</td>
+                <td>#</td>
+                <td>#</td>
+                <td>#</td>
+                <td>#</td>
+                <td>#</td>
+                <td>#</td>
+                <td>
+                    <form method="post" action="DeleteLectureServlet">
+                        <input type="hidden" id="delId" name="delId" value="">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="submit" value="delete">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th>number of theory classes</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>number of practice classes</th>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <a href="#"> lalala</a>
 </body>
 </html>

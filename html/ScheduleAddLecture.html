@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScheduleAddLecture</title>
     <style>
-        tr th {text-align: left;}
+        tr th {text-align: right;
+                width: 150px;}
+        tr, td {width: 200px;}
+        tr td input, select {box-sizing:content-box;
+                            width: 100%;
+                            }
+        .radio {width: 20px;}             
     </style>
 </head>
 <body>
@@ -16,7 +22,7 @@
             <tr>
                 <th>Day</th>
                 <td>
-                    <select name="day" id="day" aria-placeholder="">
+                    <select name="day" id="day">
                         <option value="Monday">Monday</option>
                         <option value="Tuesday">Tuesday</option>
                         <option value="Wednesday">Wednesday</option>
@@ -51,10 +57,18 @@
             <tr>
                 <th>Teaching</th>
                 <td>
-                    <input type="radio" id="theory" name="teaching" value="theory" checked>
-                    <label for="theory">Theory</label><br>
-                    <input type="radio" id="practice" name="teaching" value="practice">
-                    <label for="practice">Practice</label><br>
+                    <table>
+                        <tr>
+                            <td>
+                                <input class="radio"  type="radio" id="theory" name="teaching" value="theory" checked>
+                                <label for="theory">Theory</label><br>
+                            </td>
+                            <td>
+                                <input class="radio" type="radio" id="practice" name="teaching" value="practice">
+                                <label for="practice">Practice</label><br>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>
