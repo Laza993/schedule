@@ -8,16 +8,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import Schedule.dao.LectureDAO;
 import Schedule.dao.ScheduleToolKit;
 import Schedule.dao.TeachingDAO;
 import Schedule.model.Days;
 import Schedule.model.Lecture;
-import Schedule.model.Role;
 import Schedule.model.Teaching;
-import Schedule.model.User;
 
 @SuppressWarnings("serial")
 public class AddLectureServlet extends HttpServlet {

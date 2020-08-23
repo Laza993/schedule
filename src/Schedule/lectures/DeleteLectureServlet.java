@@ -12,10 +12,6 @@ import Schedule.dao.LectureDAO;
 public class DeleteLectureServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String idS = request.getParameter("delId");
 			if(idS == null || idS == "") {
@@ -34,6 +30,10 @@ public class DeleteLectureServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		response.sendRedirect("AllLecturesServlet");
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

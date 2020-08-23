@@ -177,7 +177,6 @@ public class LectureDAO {
 			stmt.setString(index++, lecture.getTeacher());
 			long ID = (long) lecture.getId();
 			stmt.setInt(index++, (int) ID);
-			System.out.println(stmt);
 			return stmt.executeUpdate() == 1;
 		} finally {
 			try {stmt.close();} catch (Exception e) {e.printStackTrace();}

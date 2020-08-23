@@ -29,14 +29,20 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to School Schedule</h1>
+    <h1>
+    <% if (loggedUser != null) { %>
+    <%= loggedUser.getUserName() %> Welcome to School Schedule
+    <% } %>
+    </h1>
 <% if (loggedUser == null) { %>
     <a href="Login.html">Please sign in</a>
 <% } else if (loggedUser.getRole().equals(Role.student)){ %>
     <a href="AllLecturesServlet">Preview schedule</a>
+    <a href="LogoutServlet">Logout</a>
 <% } else { %>
     <a href="AllLecturesServlet">Preview schedule</a>
     <a href="ViewAddLectureServlet">Add a new Lecture</a>
+    <a href="LogoutServlet">Logout</a>
 <% } %>
 </body>
 </html>

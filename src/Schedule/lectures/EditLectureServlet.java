@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Schedule.dao.LectureDAO;
 import Schedule.dao.ScheduleToolKit;
@@ -14,24 +15,22 @@ import Schedule.dao.TeachingDAO;
 import Schedule.model.Days;
 import Schedule.model.Lecture;
 import Schedule.model.Teaching;
+import Schedule.model.User;
 
 @SuppressWarnings("serial")
 public class EditLectureServlet extends HttpServlet {
-       
-
-    public EditLectureServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		if(loggedUser == null) {
+			response.sendRedirect("Login.html");
+			return;
+		}
 		try {
 			String idS = request.getParameter("ediTid");
 			String day = request.getParameter("day");
@@ -55,14 +54,11 @@ public class EditLectureServlet extends HttpServlet {
 			
 			
 			Lecture lecture = new Lecture(id, days, group, from, to, clasroom, teach, subject, teacher);
-			System.out.println(lecture.toString());
 			
 			if(!LectureDAO.updateLecture(lecture)) {
-				System.out.println("adding failed");
 				return;
 			};
 			
-			System.out.println("adding successful");
 			response.sendRedirect("AllLecturesServlet");
 		} catch (Exception e) {
 			e.printStackTrace();
