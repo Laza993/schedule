@@ -28,12 +28,15 @@
                 display: inline-block;
                 border-radius: 10px;
             }
+            .emptyField {background-color: #ff8080;}
     
             a:hover, a:active {
                 background-color: blue;
             }     
         </style>
         <script src="js/AddLecture.js"></script>
+        <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="js/EditLecture.js"></script>
     </head>
     <body>
         <div>
@@ -59,24 +62,36 @@
                 <tr>
                     <th>Group</th>
                     <td>
-                        <input type="text" id="group" name="group" required maxlength="3" value="<%= lecture.getGroup() %>">
+                        <input type="text" id="group" name="group" maxlength="3" value="<%= lecture.getGroup() %>">
+                    </td>
+                    <td>
+                        <p class="notValidGroup">Group field is empty!</p>
                     </td>
                 </tr>
                 <tr>
                     <th>From</th>
                     <td>
-                        <input type="time" id="from" name="from" required value="<%= lecture.getFrom() %>">
+                        <input type="time" id="from" name="from" value="<%= lecture.getFrom() %>">
+                    </td>
+                    <td>
+                        <p class="notValidFrom">From field is empty!</p>
                     </td>
                 </tr>
                 <tr>
                     <th>To</th>
                     <td>
-                        <input type="time" id="to" name="to" required value="<%= lecture.getTo() %>">
+                        <input type="time" id="to" name="to" value="<%= lecture.getTo() %>">
+                    </td>
+                    <td>
+                        <p class="notValidTo">To field is empty!</p>
                     </td>
                 </tr>
                 <tr>
                     <th>Classroom</th>
-                    <td><input type="text" id="clasroom" name="clasroom" required value="<%= lecture.getClassroom() %>"></td>
+                    <td><input type="text" id="classroom" name="classroom" value="<%= lecture.getClassroom() %>"></td>
+                    <td>
+                        <p class="notValidClassroom">Classroom field is empty!</p>
+                    </td>
                 </tr>
                 <tr>
                     <th>Teaching</th>
@@ -97,11 +112,14 @@
                 </tr>
                 <tr>
                     <th>Subject</th>
-                    <td><input type="text" id="subject" name="subject" required value="<%= lecture.getSubject() %>"></td>
+                    <td><input type="text" id="subject" name="subject" value="<%= lecture.getSubject() %>"></td>
+                    <td>
+                        <p class="notValidSubject">Subject field is empty!</p>
+                    </td>
                 </tr>
                 <tr>
                     <th>Teacher</th>
-                    <td><input type="text" name="teacher" required value="<%= lecture.getTeacher() %>"></td>
+                    <td><input type="text" name="teacher" value="<%= lecture.getTeacher() %>"></td>
                 </tr>
                 <tr>
                     <td><input type="hidden" name="ediTid" value="<%= lecture.getId() %>"></td>
