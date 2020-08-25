@@ -1,5 +1,7 @@
-
+<%@page import="Schedule.model.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<% User user = (User) session.getAttribute("loggedUser"); %>
 
 
     <!DOCTYPE html>
@@ -7,6 +9,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="data:,">
         <title>ScheduleAddLecture</title>
         <style>
             tr th {text-align: right;
@@ -16,7 +19,7 @@
                                 width: 100%;
                                 }
             .radio {width: 20px;}
-            a:link, a:visited {
+            a:link, a:visited, button, .submit {
                 background-color: #4085f5;
                 color: white;
                 padding: 8px 12px;
@@ -30,10 +33,14 @@
                 background-color: blue;
             }     
         </style>
+        <script src="js/AddLecture.js"></script>
     </head>
     <body>
         <div>
-            <form method="post" action="AddLectureServlet">
+            <button onclick="return backward()">back</button>
+        </div>
+        <div>
+            <form method="post" action="AddLectureServlet" onsubmit="return checkValues()">
             <table>
                 <caption>Add Lectures</caption>
                 <tr>
@@ -52,24 +59,24 @@
                 <tr>
                     <th>Group</th>
                     <td>
-                        <input type="text" name="group" required maxlength="3" value="">
+                        <input type="text" id="group" name="group" required maxlength="3" value="">
                     </td>
                 </tr>
                 <tr>
                     <th>From</th>
                     <td>
-                        <input type="time" name="from" required value="">
+                        <input type="time" id="from" name="from" required value="">
                     </td>
                 </tr>
                 <tr>
                     <th>To</th>
                     <td>
-                        <input type="time" name="to" required value="">
+                        <input type="time" id="to" name="to" required value="">
                     </td>
                 </tr>
                 <tr>
                     <th>Clasroom</th>
-                    <td><input type="text" name="clasroom" required value=""></td>
+                    <td><input type="text" id="classroom" name="clasroom" required value=""></td>
                 </tr>
                 <tr>
                     <th>Teaching</th>
@@ -90,15 +97,15 @@
                 </tr>
                 <tr>
                     <th>Subject</th>
-                    <td><input type="text" name="subject" required value=""></td>
+                    <td><input type="text" id="subject" name="subject" required value=""></td>
                 </tr>
                 <tr>
                     <th>Teacher</th>
-                    <td><input type="text" name="teacher" required value=""></td>
+                    <td><input type="text" id="teacher" name="teacher" required value="<%= user.getUserName() %>"></td>
                 </tr>
                 <tr>
                     <th>&nbsp;</th>
-                    <td><input type="submit" value="add"></td>
+                    <td><input type="submit" class="submit" value="add"></td>
                 </tr>
             </table>
             </form>

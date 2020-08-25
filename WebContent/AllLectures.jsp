@@ -18,6 +18,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:,">
     <title>All Lectures</title>
     <style>
         .mainTable {border-collapse: collapse;
@@ -30,7 +31,7 @@
         .mainTable tr td {
             padding: 10px;
         }
-        a:link, a:visited {
+        a:link, a:visited, button, .submit {
             background-color: #4085f5;
             color: white;
             padding: 8px 12px;
@@ -44,6 +45,7 @@
             background-color: blue;
         }
     </style>
+    <script src="js/AllLectures.js"></script>
 </head>
 <body>
     <div>
@@ -62,7 +64,7 @@
                           </select>
                     </td>
                     <td>
-                        <input type="submit" value="search">
+                        <input type="submit" class="submit" value="search">
                     </td>
                     <% if(loggedUser.getRole().equals(Role.teacher)){ %>
                     <td><a href="ViewAddLectureServlet">Create new lecture</a></td>
@@ -102,7 +104,7 @@
 
             	<% if(loggedUser.getRole().equals(Role.teacher)){ %>
                 <td>
-                    <a href="DeleteLectureServlet?delId=<%= itLecture.getId() %>">delete</a>
+                    <a href="DeleteLectureServlet?delId=<%= itLecture.getId() %>" onclick="return confirmDeletion()">delete</a>
                 </td>
                 <td>
                     <a href="ViewLectureServlet?viewId=<%= itLecture.getId() %>">edit</a>
