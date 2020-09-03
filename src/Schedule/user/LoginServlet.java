@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			HttpSession session = request.getSession();
 			session.setAttribute("loggedUser", user);
-			response.sendRedirect("ScheduleServlet");
+			response.sendRedirect("Schedule.html");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
