@@ -1,16 +1,10 @@
-<%@page import="Schedule.model.Lecture;" %>
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<% Lecture lecture = (Lecture) request.getAttribute("lecture"); %>
-
-    <!DOCTYPE html>
+   <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Edit Lecture</title>
         <link rel="icon" href="data:,">
+        <title>ScheduleAddLecture</title>
         <style>
             tr th {text-align: right;
                     width: 150px;}
@@ -28,24 +22,22 @@
                 display: inline-block;
                 border-radius: 10px;
             }
-            .emptyField {background-color: #ff8080;}
     
             a:hover, a:active {
                 background-color: blue;
             }     
         </style>
-        <script src="js/AddLecture.js"></script>
-        <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
-        <script type="text/javascript" src="js/EditLecture.js"></script>
+        <script src="js/jquery-3.5.1.js"></script>
+        <script src="js/CreateLecture.js"></script>
     </head>
     <body>
         <div>
             <button onclick="return backward()">back</button>
         </div>
         <div>
-            <form method="post" action="EditLectureServlet" onsubmit="return checkValues()">
+            <form name="addLecture">
             <table>
-                <caption>Edit Lecture</caption>
+                <caption>Add Lectures</caption>
                 <tr>
                     <th>Day</th>
                     <td>
@@ -62,36 +54,24 @@
                 <tr>
                     <th>Group</th>
                     <td>
-                        <input type="text" id="group" name="group" maxlength="3" value="<%= lecture.getGroup() %>">
-                    </td>
-                    <td>
-                        <p class="notValidGroup">Group field is empty!</p>
+                        <input type="text" id="group" name="group" required maxlength="3" value="">
                     </td>
                 </tr>
                 <tr>
                     <th>From</th>
                     <td>
-                        <input type="time" id="from" name="from" value="<%= lecture.getFrom() %>">
-                    </td>
-                    <td>
-                        <p class="notValidFrom">From field is empty!</p>
+                        <input type="time" id="from" name="from" required value="">
                     </td>
                 </tr>
                 <tr>
                     <th>To</th>
                     <td>
-                        <input type="time" id="to" name="to" value="<%= lecture.getTo() %>">
-                    </td>
-                    <td>
-                        <p class="notValidTo">To field is empty!</p>
+                        <input type="time" id="to" name="to" required value="">
                     </td>
                 </tr>
                 <tr>
-                    <th>Classroom</th>
-                    <td><input type="text" id="classroom" name="classroom" value="<%= lecture.getClassroom() %>"></td>
-                    <td>
-                        <p class="notValidClassroom">Classroom field is empty!</p>
-                    </td>
+                    <th>Clasroom</th>
+                    <td><input type="text" id="classroom" name="clasroom" required value=""></td>
                 </tr>
                 <tr>
                     <th>Teaching</th>
@@ -112,18 +92,15 @@
                 </tr>
                 <tr>
                     <th>Subject</th>
-                    <td><input type="text" id="subject" name="subject" value="<%= lecture.getSubject() %>"></td>
-                    <td>
-                        <p class="notValidSubject">Subject field is empty!</p>
-                    </td>
+                    <td><input type="text" id="subject" name="subject" value=""></td>
                 </tr>
                 <tr>
                     <th>Teacher</th>
-                    <td><input type="text" name="teacher" value="<%= lecture.getTeacher() %>"></td>
+                    <td id="teacher"></td>
                 </tr>
                 <tr>
-                    <td><input type="hidden" name="ediTid" value="<%= lecture.getId() %>"></td>
-                    <td><input type="submit" class="submit" value="save changes"></td>
+                    <th>&nbsp;</th>
+                    <td><input type="submit" class="submit" value="add"></td>
                 </tr>
             </table>
             </form>

@@ -2,12 +2,16 @@ package Schedule.lectures;
 
 import java.io.IOException;
 import java.sql.Time;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Schedule.dao.LectureDAO;
 import Schedule.dao.ScheduleToolKit;
@@ -28,7 +32,15 @@ public class EditLectureServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loggedUser = (User) session.getAttribute("loggedUser");
 		if(loggedUser == null) {
-			response.sendRedirect("Login.html");
+			
+			HashMap<String, Object> answer = new LinkedHashMap<>();
+			answer.put("status", "failed");
+			answer.put("loggedUser", loggedUser);
+			
+			String jsonAnswer = new ObjectMapper().writeValueAsString(answer);
+			response.setContentType("application/json; charset=UTF-8");
+			response.getWriter().write(jsonAnswer);
+			
 			return;
 		}
 		try {
@@ -43,7 +55,14 @@ public class EditLectureServlet extends HttpServlet {
 			String teacher = request.getParameter("teacher");
 			
 			if(idS == "" || sTime1 == "" || sTime2 == "" || day == "" || group == "" || clasroom == "" || teaching == "" || subject == "" || teacher == ""){
-				response.sendRedirect("ViewAddLectureServlet");
+				HashMap<String, Object> answer = new LinkedHashMap<>();
+				answer.put("status", "failed");
+				answer.put("loggedUser", loggedUser);
+				answer.put("explanation", "empty field");
+				
+				String jsonAnswer = new ObjectMapper().writeValueAsString(answer);
+				response.setContentType("application/json; charset=UTF-8");
+				response.getWriter().write(jsonAnswer);
 				return;
 			}
 			Long id = (long) Integer.parseInt(idS);
@@ -51,15 +70,27 @@ public class EditLectureServlet extends HttpServlet {
 			Time to = ScheduleToolKit.StringToTime(sTime2);
 			Teaching teach = TeachingDAO.getTeachingByName(teaching);
 			Days days = Days.valueOf(day);
-			
-			
 			Lecture lecture = new Lecture(id, days, group, from, to, clasroom, teach, subject, teacher);
 			
-			if(!LectureDAO.updateLecture(lecture)) {
+			if(LectureDAO.updateLecture(lecture)) {
+				HashMap<String, Object> answer = new LinkedHashMap<>();
+				answer.put("status", "success");
+				answer.put("loggedUser", loggedUser);
+				
+				String jsonAnswer = new ObjectMapper().writeValueAsString(answer);
+				response.setContentType("application/json; charset=UTF-8");
+				response.getWriter().write(jsonAnswer);
+			}else{
+				HashMap<String, Object> answer = new LinkedHashMap<>();
+				answer.put("status", "failed");
+				answer.put("loggedUser", loggedUser);
+				
+				String jsonAnswer = new ObjectMapper().writeValueAsString(answer);
+				response.setContentType("application/json; charset=UTF-8");
+				response.getWriter().write(jsonAnswer);
 				return;
 			};
 			
-			response.sendRedirect("AllLecturesServlet");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

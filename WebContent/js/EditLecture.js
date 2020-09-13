@@ -1,5 +1,88 @@
 $(document).ready(function(){
 
+
+    var url = new URL(window.location.href);
+    const attrName = "viewId";
+    var param = url.searchParams.get(attrName);
+    var parameters = {"viewId" : param};
+
+
+    var groupField = $("input[name=group]");
+    var fromField = $("input[name=from]");
+    var toField = $("input[name=to]");
+    var classroomField = $("input[name=classroom]");
+    var subjectField = $("input[name=subject]");
+    var teacherField = $("input[name=teacher]");
+
+
+    $.get("ViewLectureServlet", parameters, function(answer){
+        console.log(answer);
+        if(answer.status == "success"){
+            $("#group").val(answer.lecture.group);
+            fromField.val(answer.lecture.from);
+            toField.val(answer.lecture.to);
+            classroomField.val(answer.lecture.classroom);
+            subjectField.val(answer.lecture.subject);
+            teacherField.val(answer.lecture.teacher);
+            $("#dayDiv select").val(answer.lecture.day);
+            var radioValue = answer.lecture.teaching.name;
+            $('#' + radioValue).prop('checked',true);
+        }else if(answer.loggedUser == null){
+            window.location.replace("Login.html");
+        }else{
+            alert("failed to fetch lecture");
+            window.location.replace("AllLecture.html");
+        }
+
+    });
+
+    $("form").submit(function(){
+        var group = groupField.val();
+        var from = fromField.val();
+        var to = toField.val();
+        var clasroom = classroomField.val();
+        var subject = subjectField.val();
+        var teacher = teacherField.val();
+        var day = $("#dayDiv option:selected").val();
+        var ediTid = param;
+        var teaching = $("input.radio:checked").val();
+
+        var postParams = {
+            "group" : group,
+            "from" : from,
+            "to" : to,
+            "clasroom" : clasroom,
+            "subject" : subject,
+            "day" : day,
+            "teaching" : teaching,
+            "teacher" : teacher,
+            "ediTid" : ediTid
+        }
+        console.log(postParams);
+
+        if( group == "" || from == "" || to == "" || clasroom == "" || subject == "" || day == "" || teaching == "" || teacher == ""){
+            alert("all fields are required");
+            return false;
+        }
+
+        $.post("EditLectureServlet", postParams, function(postAnswer){
+            if(postAnswer.status == "success"){
+                window.location.replace("AllLectures.html");
+            }else{
+                if(postAnswer.loggedUser == null){
+                    window.location.replace("Login.html");
+                }else{
+                    alert("failed to update Lecture: " + postAnswer.explanation);
+                    return false;
+                }
+            }
+        });
+        return false;
+    })
+
+
+
+// validation
     var notValidGroupField = $("p.notValidGroup");
     var notValidFromField = $("p.notValidFrom");
     var notValidToField = $("p.notValidTo");
@@ -11,8 +94,6 @@ $(document).ready(function(){
     notValidToField.hide();
     notValidClassroomField.hide();
     notValidSubjectField.hide();
-
-    var groupField = $("input[name=group]");
 
     groupField.blur(function(){
         console.log("blur");
@@ -30,8 +111,6 @@ $(document).ready(function(){
         notValidGroupField.slideUp(1500);
     });
 
-    var fromField = $("input[name=from]");
-
     fromField.blur(function(){
         console.log("blur");
         if(fromField.val() == ""){
@@ -48,10 +127,6 @@ $(document).ready(function(){
         notValidFromField.slideUp(1500);
     });
 
-
-
-    var toField = $("input[name=to]");
-
     toField.blur(function(){
         console.log("blur");
         if(toField.val() == ""){
@@ -67,8 +142,7 @@ $(document).ready(function(){
         toField.removeClass("emptyField");
         notValidToField.slideUp(1500);
     });
-
-    var classroomField = $("input[name=classroom]");
+    
 
     classroomField.blur(function(){
         console.log("blur");
@@ -86,7 +160,6 @@ $(document).ready(function(){
         notValidClassroomField.slideUp(1500);
     });
     
-    var subjectField = $("input[name=subject]");
 
     subjectField.blur(function(){
         console.log("blur");
@@ -104,8 +177,14 @@ $(document).ready(function(){
         notValidSubjectField.slideUp(1500);
     });
 
-    var teacherField = $("input[name=teacher]");
     teacherField.click(function(){
         teacherField.attr("disabled", true);
     })
+
+    // other methods
+
+    $("button.backward").click(function(){
+        return history.back();
+    });
+
 });

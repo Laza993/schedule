@@ -1,12 +1,16 @@
 package Schedule.lectures;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Schedule.model.Role;
 import Schedule.model.User;
@@ -27,7 +31,19 @@ public class ViewAddLectureServlet extends HttpServlet {
 			return;
 		}
 		try {
-			request.getRequestDispatcher("CreateLecture.jsp").forward(request, response);
+			
+			Map<String, Object> answer = new LinkedHashMap<>();
+			answer.put("status", "success");
+			answer.put("logged", loggedUser != null);
+			answer.put("user", loggedUser);
+			
+			String jsonAnswer = new ObjectMapper().writeValueAsString(answer);
+			
+			System.out.println(jsonAnswer);
+			
+			response.setContentType("application/json; charset=UTF-8");
+			response.getWriter().write(jsonAnswer);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

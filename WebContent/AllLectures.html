@@ -1,21 +1,9 @@
-<%@page import="Schedule.model.Lecture"%>
-<%@page import="Schedule.model.User"%>
-<%@page import="Schedule.model.Role"%>
-<%@page import="java.util.List"%>
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%
-    User loggedUser = (User) session.getAttribute("loggedUser");
-	@SuppressWarnings("unchecked")
-	List<Lecture> lectures = (List<Lecture>) request.getAttribute("lectures");
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:,">
     <title>All Lectures</title>
     <style>
         .mainTable {border-collapse: collapse;
@@ -28,7 +16,7 @@
         .mainTable tr td {
             padding: 10px;
         }
-        a:link, a:visited {
+        a:link, a:visited, button, .submit {
             background-color: #4085f5;
             color: white;
             padding: 8px 12px;
@@ -42,14 +30,16 @@
             background-color: blue;
         }
     </style>
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/AllLectures.js"></script>
 </head>
 <body>
     <div>
         <table>
-            <form action="SearchByDayServlet" method="post">
+            <form class="searchForm">
                 <tr>              
                     <td>
-                        <select name="day" id="day">
+                        <select name="day" id="days">
                             <option value="All">All</option>
                             <option value="Monday">Monday</option>
                             <option value="Tuesday">Tuesday</option>
@@ -60,12 +50,12 @@
                           </select>
                     </td>
                     <td>
-                        <input type="submit" value="search">
+                        <input type="submit" class="submit" value="search">
                     </td>
-                    <% if(loggedUser.getRole().equals(Role.teacher)){ %>
-                    <td><a href="ViewAddLectureServlet">Create new lecture</a></td>
-                    <% } %>
                     <td><a href="LogoutServlet">Logout</a></td>
+                    <td>
+                        <button class="backward">back</button>
+                    </td>
                 </tr>
             </form>
         </table>
@@ -74,7 +64,7 @@
         <table class="mainTable" border="1">
             <caption><h1>Schedule</h1></caption>
             
-            <tr>
+            <tr class="mainTable">
                 <th>Day</th>
                 <th>Group</th>
                 <th>From</th>
@@ -83,31 +73,19 @@
                 <th>Teaching</th>
                 <th>Subject</th>
                 <th>Teacher</th>
-            <% if(loggedUser.getRole().equals(Role.teacher)){ %>
-                <th colspan="2">Action</th>
-            <% } %>
             </tr>
-            <% for (Lecture itLecture: lectures) { %>
+        </table>
+    </div>
+    <div>
+        <table>
             <tr>
-                <td><%= itLecture.getDay() %></td>
-                <td><%= itLecture.getGroup() %></td>
-                <td><%= itLecture.getFrom() %></td>
-                <td><%= itLecture.getTo() %></td>
-                <td><%= itLecture.getClassroom() %></td>
-                <td><%= itLecture.getTeaching().getName() %></td>
-                <td><%= itLecture.getSubject() %></td>
-                <td><%= itLecture.getTeacher() %></td>
-
-            	<% if(loggedUser.getRole().equals(Role.teacher)){ %>
-                <td>
-                    <a href="DeleteLectureServlet?delId=<%= itLecture.getId() %>">delete</a>
-                </td>
-                <td>
-                    <a href="ViewLectureServlet?viewId=<%= itLecture.getId() %>">edit</a>
-                </td>
-            	<% } %>
+                <th>number of theory classes</th>
+                <td id="theoryClassNum"></td>
             </tr>
-			<% } %>
+            <tr>
+                <th>number of practice classes</th>
+                <td id="practiceClassNum"></td>
+            </tr>
         </table>
     </div>
 </body>

@@ -33,6 +33,31 @@ public class UserDAO {
 		}
 		return user;
 	}
+	
+	public static User getUser(String username) throws Exception {
+		User user = null;
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
+		try {
+			String sql = "SELECT * FROM users WHERE user_name = ?";
+			stmt = ConnectionManager.getConnection().prepareStatement(sql);
+			int index = 1;
+			stmt.setString(index++, username);
+			rset = stmt.executeQuery();
+			if(rset.next()) {
+				int ind = 1;
+				String usernames = rset.getString(ind++);
+				ind++;
+				String roles = rset.getString(ind++);
+				Role role = Role.valueOf(roles);
+				user = new User(usernames, null, role);	
+			}
+		} finally {
+			try {stmt.close();} catch (Exception e) {e.printStackTrace();}
+			try {rset.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return user;
+	}
 
 	public static boolean register(User user) throws Exception {
 		PreparedStatement stmt = null;

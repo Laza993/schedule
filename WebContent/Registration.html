@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Register page</title>
+	<link rel="icon" href="data:,">
 	<style type="text/css">
 		input[type="text"][type="password"] {
 			width: 150px
@@ -23,19 +24,20 @@
             background-color: blue;
         }
 	</style>
+	<script src="js/jquery-3.5.1.js"></script>
 	<script src="js/Registration.js"></script>
 </head>
 <body>
-	<form method="post" action="RegisterServlet" onsubmit="return fillIn(username1, password1, password2)">
+	<form name="registration">
 		<table>
 			<caption>Registration</caption>
-			<tr><th>Username:</th><td><input type="text" name="username1" onblur="emptyField(this)" onfocus="filledField(this)"/></td><td></td></tr>
-			<tr><th>Password:</th><td><input type="password" name="password1" onblur="emptyField(this)" onfocus="filledField(this)" /></td><td></td></tr>
-			<tr><th>Password:</th><td><input type="password" name="password2" onblur="emptyField(this)" onfocus="filledField(this)" /></td><td></td></tr>
+			<tr><th>Username:</th><td><input type="text" class="username" name="username1"/>  <span></span></td></tr>
+			<tr><th>Password:</th><td><input type="password" class="password1" name="password1"/>  <span></span></td></tr>
+			<tr><th>Password:</th><td><input type="password" class="password2" name="password2"/>  <span></span></td></tr>
 			<tr>
 				<th>Role</th>
 				<td>
-					<select name="role" id="role" >
+					<select name="role" id="roles" >
 						<option value="teacher">teacher</option>
 						<option value="student" selected>student</option>
 					</select>
@@ -43,6 +45,7 @@
 			</tr>
 			<tr><td></td><td><input type="submit" value="Submit"/></td></tr>
 		</table>
+		<a href="Login.html">already have account</a>
 	</form>
 </body>
 </html>
